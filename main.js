@@ -1,6 +1,6 @@
 // ====================================
 // Pokémon Champions Damage Calculator
-// Ver.0.1.1
+// Ver.0.2.0
 // ====================================
 
 // ------------------------------
@@ -16,7 +16,7 @@ const hpFill = document.querySelector(".hp-fill");
 
 // ------------------------------
 // 仮ポケモンデータ
-// ※後でpokemon.jsへ移動
+// （後でpokemon.jsへ移動）
 // ------------------------------
 
 const pokemons = [
@@ -39,43 +39,78 @@ const pokemons = [
 ];
 
 // ------------------------------
+// タイプリスト
+// ------------------------------
+
+function fillTypeSelect(id){
+
+    const select = document.getElementById(id);
+
+    if(!select) return;
+
+    select.innerHTML = "";
+
+    const first = document.createElement("option");
+    first.value = "";
+    first.textContent = "タイプ";
+    select.appendChild(first);
+
+    TYPES.forEach(type=>{
+
+        const option = document.createElement("option");
+
+        option.value = type.id;
+        option.textContent = type.name;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+fillTypeSelect("attackerType1");
+fillTypeSelect("attackerType2");
+fillTypeSelect("defenderType1");
+fillTypeSelect("defenderType2");
+fillTypeSelect("moveType");
+
+// ------------------------------
 // ポケモン検索
 // ------------------------------
 
-function setupPokemonSearch(inputId, searchBoxId) {
+function setupPokemonSearch(inputId, searchBoxId){
 
-    const input = document.getElementById(inputId);
-    const searchBox = document.getElementById(searchBoxId);
+    const input=document.getElementById(inputId);
+    const searchBox=document.getElementById(searchBoxId);
 
-    if (!input || !searchBox) return;
+    if(!input || !searchBox) return;
 
-    input.addEventListener("input", () => {
+    input.addEventListener("input",()=>{
 
-        const keyword = input.value.trim();
+        const keyword=input.value.trim();
 
-        searchBox.innerHTML = "";
+        searchBox.innerHTML="";
 
-        if (keyword === "") return;
+        if(keyword==="") return;
 
-        const result = pokemons.filter(name =>
+        const result=pokemons.filter(name=>
             name.includes(keyword)
         );
 
-        result.forEach(name => {
+        result.forEach(name=>{
 
-            const item = document.createElement("div");
+            const div=document.createElement("div");
 
-            item.textContent = name;
+            div.textContent=name;
 
-            item.addEventListener("click", () => {
+            div.onclick=()=>{
 
-                input.value = name;
+                input.value=name;
+                searchBox.innerHTML="";
 
-                searchBox.innerHTML = "";
+            };
 
-            });
-
-            searchBox.appendChild(item);
+            searchBox.appendChild(div);
 
         });
 
@@ -83,13 +118,11 @@ function setupPokemonSearch(inputId, searchBoxId) {
 
 }
 
-// 攻撃側
 setupPokemonSearch(
     "attackerPokemon",
     "attackerSearchBox"
 );
 
-// 防御側
 setupPokemonSearch(
     "defenderPokemon",
     "defenderSearchBox"
@@ -99,14 +132,14 @@ setupPokemonSearch(
 // ダメージ計算（仮）
 // ------------------------------
 
-calculateButton.addEventListener("click", () => {
+calculateButton.addEventListener("click",()=>{
 
-    damageValue.textContent = "72 ～ 85";
+    damageValue.textContent="72 ～ 85";
 
-    damagePercent.textContent = "34.7% ～ 41.0%";
+    damagePercent.textContent="34.7% ～ 41.0%";
 
-    koCount.textContent = "確定3発";
+    koCount.textContent="確定3発";
 
-    hpFill.style.width = "65%";
+    hpFill.style.width="65%";
 
 });
