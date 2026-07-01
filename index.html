@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Champions Damage Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <h1>Pokémon Champions</h1>
+        <h2>Damage Calculator</h2>
+    </header>
+
+    <!-- 攻撃側 -->
+    <section class="card">
+
+        <div class="section-title">
+            ⚔️ 攻撃側
+            <button class="detail-button">⚙</button>
+        </div>
+
+        <input
+            type="text"
+            id="attackerPokemon"
+            placeholder="ポケモン名">
+
+        <div class="search-box" id="attackerSearchBox"></div>
+
+        <div class="row">
+
+            <select id="attackerType1">
+                <option value="">タイプ1</option>
+            </select>
+
+            <select id="attackerType2">
+                <option value="">タイプ2</option>
+            </select>
+
+        </div>
+
+        <div class="row">
+
+            <select id="attackerAbility">
+                <option>特性</option>
+            </select>
+
+            <select id="attackerItem">
+                <option>持ち物</option>
+            </select>
+
+        </div>
+
+    </section>
+
+    <!-- 防御側 -->
+    <section class="card">
+
+        <div class="section-title">
+            🛡️ 防御側
+            <button class="detail-button">⚙</button>
+        </div>
+
+        <input
+            type="text"
+            id="defenderPokemon"
+            placeholder="ポケモン名">
+
+        <div class="search-box" id="defenderSearchBox"></div>
+
+        <div class="row">
+
+            <select id="defenderType1">
+                <option value="">タイプ1</option>
+            </select>
+
+            <select id="defenderType2">
+                <option value="">タイプ2</option>
+            </select>
+
+        </div>
+
+        <div class="row">
+
+            <input
+                type="number"
+                id="hp"
+                placeholder="HP">
+
+            <input
+                type="number"
+                id="currentHp"
+                placeholder="現在HP">
+
+        </div>
+
+    </section>
+
+    <!-- 技 -->
+    <section class="card">
+
+        <div class="section-title">
+            💥 技
+            <button class="detail-button">⚙</button>
+        </div>
+
+        <input
+            type="text"
+            id="moveName"
+            placeholder="技名">
+
+        <div class="row">
+
+            <input
+                type="number"
+                id="power"
+                placeholder="威力">
+
+            <select id="moveType">
+                <option value="">タイプ</option>
+            </select>
+
+        </div>
+
+    </section>
+
+    <button id="calculateButton">
+        ダメージ計算
+    </button>
+
+    <!-- 計算結果 -->
+    <section class="card">
+
+        <div class="section-title">
+            📊 計算結果
+        </div>
+
+        <div id="damageValue">
+            -
+        </div>
+
+        <div id="damagePercent">
+            -
+        </div>
+
+        <div id="koCount">
+            -
+        </div>
+
+        <div class="hp-bar">
+            <div class="hp-fill"></div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- データ -->
+<script src="data/types.js"></script>
+
+<!-- メイン -->
+<script src="main.js"></script>
+
+</body>
+</html>
