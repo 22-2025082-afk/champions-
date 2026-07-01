@@ -1,1 +1,52 @@
-
+[
+  {
+    "name": "ピカチュウ",
+    "type1": "electric",
+    "type2": ""
+  },
+  {
+    "name": "リザードン",
+    "type1": "fire",
+    "type2": "flying"
+  },
+  {
+    "name": "フシギバナ",
+    "type1": "grass",
+    "type2": "poison"
+  },
+  {
+    "name": "カメックス",
+    "type1": "water",
+    "type2": ""
+  },
+  {
+    "name": "ゲンガー",
+    "type1": "ghost",
+    "type2": "poison"
+  },
+  {
+    "name": "ガブリアス",
+    "type1": "dragon",
+    "type2": "ground"
+  },
+  {
+    "name": "カイリュー",
+    "type1": "dragon",
+    "type2": "flying"
+  },
+  {
+    "name": "ミミッキュ",
+    "type1": "ghost",
+    "type2": "fairy"
+  },
+  {
+    "name": "ルカリオ",
+    "type1": "fighting",
+    "type2": "steel"
+  },
+  {
+    "name": "サーナイト",
+    "type1": "psychic",
+    "type2": "fairy"
+  }
+]
