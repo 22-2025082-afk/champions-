@@ -4,7 +4,9 @@
 // Ver.0.4.0
 // ====================================
 
-// ポケモン検索機能
+// ------------------------------
+// ポケモン検索
+// ------------------------------
 
 function setupPokemonSearch(inputId, searchBoxId) {
 
@@ -21,13 +23,7 @@ function setupPokemonSearch(inputId, searchBoxId) {
 
         if (keyword === "") return;
 
-        // pokemon.jsonを読み込んでいる場合
-        const list =
-            (window.pokemonData && window.pokemonData.length)
-                ? window.pokemonData
-                : pokemons.map(name => ({ name }));
-
-        const result = list.filter(pokemon =>
+        const result = GameData.pokemon.filter(pokemon =>
             pokemon.name.includes(keyword)
         );
 
@@ -42,10 +38,7 @@ function setupPokemonSearch(inputId, searchBoxId) {
                 input.value = pokemon.name;
                 searchBox.innerHTML = "";
 
-                // ui.jsが読み込まれていれば自動入力
-                if (typeof fillPokemonData === "function") {
-                    fillPokemonData(inputId, pokemon);
-                }
+                fillPokemonData(inputId, pokemon);
 
             });
 
@@ -57,13 +50,21 @@ function setupPokemonSearch(inputId, searchBoxId) {
 
 }
 
-// 初期化
-setupPokemonSearch(
-    "attackerPokemon",
-    "attackerSearchBox"
-);
+// ------------------------------
+// 技検索
+// ------------------------------
 
-setupPokemonSearch(
-    "defenderPokemon",
-    "defenderSearchBox"
-);
+function setupMoveSearch() {
+
+    const input = document.getElementById("moveName");
+
+    if (!input) return;
+
+    input.addEventListener("input", () => {
+
+        // Ver.0.4では未実装
+        // Ver.0.5でmoves.json対応予定
+
+    });
+
+}
