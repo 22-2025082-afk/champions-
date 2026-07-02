@@ -1,69 +1,95 @@
 // ====================================
 // Pokémon Champions Damage Calculator
-// search.js
+// ui.js
 // Ver.0.4.0
 // ====================================
 
-// ポケモン検索機能
+// ------------------------------
+// ポケモン情報を画面へ反映
+// ------------------------------
 
-function setupPokemonSearch(inputId, searchBoxId) {
+function fillPokemonData(inputId, pokemon) {
 
-    const input = document.getElementById(inputId);
-    const searchBox = document.getElementById(searchBoxId);
+    if (!pokemon) return;
 
-    if (!input || !searchBox) return;
+    const isAttacker = inputId === "attackerPokemon";
 
-    input.addEventListener("input", () => {
+    const type1Select = document.getElementById(
+        isAttacker ? "attackerType1" : "defenderType1"
+    );
 
-        const keyword = input.value.trim();
+    const type2Select = document.getElementById(
+        isAttacker ? "attackerType2" : "defenderType2"
+    );
 
-        searchBox.innerHTML = "";
+    if (type1Select) {
+        type1Select.value = pokemon.type1 || "";
+    }
 
-        if (keyword === "") return;
+    if (type2Select) {
+        type2Select.value = pokemon.type2 || "";
+    }
 
-        // pokemon.jsonを読み込んでいる場合
-        const list =
-            (window.pokemonData && window.pokemonData.length)
-                ? window.pokemonData
-                : pokemons.map(name => ({ name }));
+}
 
-        const result = list.filter(pokemon =>
-            pokemon.name.includes(keyword)
-        );
+// ------------------------------
+// タイプリスト初期化
+// ------------------------------
 
-        result.forEach(pokemon => {
+function initializeTypeSelects() {
 
-            const div = document.createElement("div");
+    const ids = [
 
-            div.textContent = pokemon.name;
+        "attackerType1",
+        "attackerType2",
+        "defenderType1",
+        "defenderType2",
+        "moveType"
 
-            div.addEventListener("click", () => {
+    ];
 
-                input.value = pokemon.name;
-                searchBox.innerHTML = "";
+    ids.forEach(fillTypeSelect);
 
-                // ui.jsが読み込まれていれば自動入力
-                if (typeof fillPokemonData === "function") {
-                    fillPokemonData(inputId, pokemon);
-                }
+}
 
-            });
+// ------------------------------
+// タイプセレクト生成
+// ------------------------------
 
-            searchBox.appendChild(div);
+function fillTypeSelect(id) {
 
-        });
+    const select = document.getElementById(id);
+
+    if (!select) return;
+
+    select.innerHTML = "";
+
+    const first = document.createElement("option");
+
+    first.value = "";
+    first.textContent = "タイプ";
+
+    select.appendChild(first);
+
+    TYPES.forEach(type => {
+
+        const option = document.createElement("option");
+
+        option.value = type.id;
+        option.textContent = type.name;
+
+        select.appendChild(option);
 
     });
 
 }
 
-// 初期化
-setupPokemonSearch(
-    "attackerPokemon",
-    "attackerSearchBox"
-);
+// ------------------------------
+// UI初期化
+// ------------------------------
 
-setupPokemonSearch(
-    "defenderPokemon",
-    "defenderSearchBox"
-);
+function initializeUI() {
+
+    initializeTypeSelects();
+
+}
