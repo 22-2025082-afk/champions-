@@ -5,10 +5,53 @@
 // ====================================
 
 let pokemonData = [];
+let moveData = [];
 
-async function loadPokemonData() {
-    const response = await fetch("data/pokemon.json");
-    pokemonData = await response.json();
+/**
+ * JSONファイルを読み込む
+ */
+async function loadJson(path) {
 
-    console.log("ポケモンデータ読み込み完了", pokemonData);
+    const response = await fetch(path);
+
+    if (!response.ok) {
+        throw new Error(`${path} の読み込みに失敗しました。`);
+    }
+
+    return await response.json();
+
+}
+
+/**
+ * 全データ読み込み
+ */
+async function loadGameData() {
+
+    try {
+
+        pokemonData = await loadJson("data/pokemon.json");
+
+        try {
+            moveData = await loadJson("data/moves.json");
+        } catch {
+
+            // moves.jsonが空でもエラーにしない
+            moveData = [];
+
+        }
+
+        console.log("Pokemon:", pokemonData.length);
+        console.log("Moves:", moveData.length);
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+        alert("データの読み込みに失敗しました。");
+
+        return false;
+
+    }
+
 }
