@@ -1,40 +1,13 @@
-// ====================================
-// Pokémon Champions Damage Calculator
-// main.js
-// Ver.0.4.0
-// ====================================
-
-window.addEventListener("DOMContentLoaded", initialize);
-
-// ------------------------------
-// 初期化
-// ------------------------------
-
-async function initialize() {
-
-    // データ読み込み
-    await loadGameData();
-
-    // UI初期化
-    initializeUI();
-
-    // ポケモン検索
-    setupPokemonSearch(
-        "attackerPokemon",
-        "attackerSearchBox"
-    );
-
-    setupPokemonSearch(
-        "defenderPokemon",
-        "defenderSearchBox"
-    );
-
-    // 技検索
-    setupMoveSearch();
-
-    // ダメージ計算
-    initializeCalculator();
-
-    console.log("Pokémon Champions Damage Calculator Ver.0.4.0");
-
-}
+console.log("1: start");
+await loadGameData();
+console.log("2: data loaded");
+initializeUI();
+console.log("3: ui");
+setupPokemonSearch("attackerPokemon", "attackerSearchBox");
+console.log("4: search1");
+setupPokemonSearch("defenderPokemon", "defenderSearchBox");
+console.log("5: search2");
+setupMoveSearch();
+console.log("6: move search");
+initializeCalculator();
+console.log("7: calculator");
