@@ -41,20 +41,33 @@
                 <option value="">タイプ2</option>
             </select>
 
-        </div>
-
         <div class="row">
 
-            <select id="attackerAbility">
-                <option>特性</option>
-            </select>
+    <select id="attackerAbility">
+        <option>特性</option>
+    </select>
 
-            <select id="attackerItem">
-                <option>持ち物</option>
-            </select>
+    <select id="attackerItem">
+        <option>持ち物</option>
+    </select>
 
-        </div>
+</div>
 
+<div class="row">
+
+    <input
+        type="number"
+        id="attackerPoint"
+        placeholder="攻撃能力ポイント"
+        value="0">
+
+    <select id="attackerNature">
+        <option value="1.0">性格（ふつう）</option>
+        <option value="1.1">攻撃↑</option>
+        <option value="0.9">攻撃↓</option>
+    </select>
+
+</div>
     </section>
 
     <!-- 防御側 -->
@@ -86,18 +99,19 @@
 
         <div class="row">
 
-            <input
-                type="number"
-                id="hp"
-                placeholder="HP">
+    <input
+        type="number"
+        id="defenderPoint"
+        placeholder="防御能力ポイント"
+        value="0">
 
-            <input
-                type="number"
-                id="currentHp"
-                placeholder="現在HP">
+    <select id="defenderNature">
+        <option value="1.0">性格（ふつう）</option>
+        <option value="1.1">防御↑</option>
+        <option value="0.9">防御↓</option>
+    </select>
 
-        </div>
-
+</div>
     </section>
 
     <!-- 技 -->
