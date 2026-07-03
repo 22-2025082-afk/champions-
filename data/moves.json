@@ -28,24 +28,17 @@
     "accuracy": 100
   },
   {
-    "name": "インファイト",
-    "type": "かくとう",
-    "category": "physical",
-    "power": 120,
-    "accuracy": 100
-  },
-  {
-    "name": "ムーンフォース",
-    "type": "フェアリー",
-    "category": "special",
-    "power": 95,
-    "accuracy": 100
-  },
-  {
     "name": "シャドーボール",
     "type": "ゴースト",
     "category": "special",
     "power": 80,
+    "accuracy": 100
+  },
+  {
+    "name": "インファイト",
+    "type": "かくとう",
+    "category": "physical",
+    "power": 120,
     "accuracy": 100
   },
   {
@@ -67,6 +60,13 @@
     "type": "くさ",
     "category": "physical",
     "power": 120,
+    "accuracy": 100
+  },
+  {
+    "name": "ムーンフォース",
+    "type": "フェアリー",
+    "category": "special",
+    "power": 95,
     "accuracy": 100
   }
 ]
