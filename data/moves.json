@@ -1,1 +1,72 @@
-
+[
+  {
+    "name": "じしん",
+    "type": "じめん",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 100
+  },
+  {
+    "name": "10まんボルト",
+    "type": "でんき",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100
+  },
+  {
+    "name": "れいとうビーム",
+    "type": "こおり",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100
+  },
+  {
+    "name": "かえんほうしゃ",
+    "type": "ほのお",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100
+  },
+  {
+    "name": "インファイト",
+    "type": "かくとう",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100
+  },
+  {
+    "name": "ムーンフォース",
+    "type": "フェアリー",
+    "category": "special",
+    "power": 95,
+    "accuracy": 100
+  },
+  {
+    "name": "シャドーボール",
+    "type": "ゴースト",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100
+  },
+  {
+    "name": "アイアンヘッド",
+    "type": "はがね",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100
+  },
+  {
+    "name": "アクアブレイク",
+    "type": "みず",
+    "category": "physical",
+    "power": 85,
+    "accuracy": 100
+  },
+  {
+    "name": "ウッドハンマー",
+    "type": "くさ",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100
+  }
+]
