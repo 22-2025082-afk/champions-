@@ -1,103 +1,62 @@
 // ====================================
 // Pokémon Champions Damage Calculator
 // calculator.js
-// Ver.0.5.2
+// Ver.0.6.0
 // ====================================
-
-// ------------------------------
-// 要素取得
-// ------------------------------
 
 const calculateButton = document.getElementById("calculateButton");
 
-const damageValue = document.getElementById("damageValue");
-const damagePercent = document.getElementById("damagePercent");
-const koCount = document.getElementById("koCount");
-const hpFill = document.querySelector(".hp-fill");
-
-// ------------------------------
-// ダメージ計算（画面連動版）
-// ------------------------------
-
 function calculateDamage() {
 
-    // 攻撃側
-    const atkPokemonName = document.getElementById("attackerPokemon").value;
-    const atkPokemon = GameData.pokemon.find(p => p.name === atkPokemonName);
+    const atkPokemon = GameData.pokemon.find(
+        p => p.name === document.getElementById("attackerPokemon").value
+    );
 
-    // 防御側
-    const defPokemonName = document.getElementById("defenderPokemon").value;
-    const defPokemon = GameData.pokemon.find(p => p.name === defPokemonName);
+    const defPokemon = GameData.pokemon.find(
+        p => p.name === document.getElementById("defenderPokemon").value
+    );
 
-    // 技
-    const moveName = document.getElementById("moveName").value;
-    const move = GameData.moves.find(m => m.name === moveName);
+    const move = GameData.moves.find(
+        m => m.name === document.getElementById("moveName").value
+    );
 
     if (!atkPokemon || !defPokemon || !move) {
-        alert("ポケモン・技を正しく選択してください");
+        alert("ポケモン・技を選択してね");
         return;
     }
 
-    // ------------------------------
-    // データ作成
-    // ------------------------------
-
     const data = {
-
         atk: atkPokemon.atk,
         def: defPokemon.def,
         hp: defPokemon.hp,
         power: move.power,
 
-        atkPoint: 0,
-        defPoint: 0,
+        atkPoint: Number(document.getElementById("attackerPoint").value || 0),
+        defPoint: Number(document.getElementById("defenderPoint").value || 0),
 
-        atkNature: 1.0,
-        defNature: 1.0
+        atkNature: Number(document.getElementById("attackerNature").value || 1.0),
+        defNature: Number(document.getElementById("defenderNature").value || 1.0),
 
+        moveType: move.type,
+        attackerTypes: [atkPokemon.type1, atkPokemon.type2].filter(Boolean),
+        defenderTypes: [defPokemon.type1, defPokemon.type2].filter(Boolean)
     };
-
-    // ------------------------------
-    // 計算実行
-    // ------------------------------
 
     const result = calculateChampionsDamage(data);
 
-    // ------------------------------
-    // 表示
-    // ------------------------------
+    document.getElementById("damageValue").textContent =
+        `${result.minDamage} ～ ${result.maxDamage}`;
 
-    damageValue.textContent =
-        `${result.minDamage}`;
+    document.getElementById("damagePercent").textContent =
+        `${result.minPercent}% ～ ${result.maxPercent}%`;
 
-    damagePercent.textContent =
-        `${result.minPercent}%`;
-
-    koCount.textContent =
+    document.getElementById("koCount").textContent =
         result.koText;
 
-    updateHpBar(result.hpPercent);
-
+    document.querySelector(".hp-fill").style.width =
+        `${result.hpPercent}%`;
 }
-
-// ------------------------------
-// HPバー更新
-// ------------------------------
-
-function updateHpBar(percent) {
-
-    hpFill.style.width = `${percent}%`;
-
-}
-
-// ------------------------------
-// 初期化
-// ------------------------------
 
 function initializeCalculator() {
-
-    if (!calculateButton) return;
-
     calculateButton.addEventListener("click", calculateDamage);
-
 }
