@@ -1,7 +1,7 @@
 // ====================================
 // Pokémon Champions Damage Calculator
 // search.js
-// Ver.0.4.0
+// Ver.0.5.0
 // ====================================
 
 // ------------------------------
@@ -62,8 +62,17 @@ function setupMoveSearch() {
 
     input.addEventListener("input", () => {
 
-        // Ver.0.4では未実装
-        // Ver.0.5でmoves.json対応予定
+        const keyword = input.value.trim();
+
+        if (keyword === "") return;
+
+        const move = GameData.moves.find(m =>
+            m.name === keyword
+        );
+
+        if (!move) return;
+
+        fillMoveData(move);
 
     });
 
