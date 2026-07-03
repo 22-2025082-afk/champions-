@@ -14,13 +14,21 @@ function fillPokemonData(inputId, pokemon) {
 
     const isAttacker = inputId === "attackerPokemon";
 
-    document.getElementById(
+    const type1Select = document.getElementById(
         isAttacker ? "attackerType1" : "defenderType1"
-    ).value = pokemon.type1 || "";
+    );
 
-    document.getElementById(
+    const type2Select = document.getElementById(
         isAttacker ? "attackerType2" : "defenderType2"
-    ).value = pokemon.type2 || "";
+    );
+
+    if (type1Select) {
+        type1Select.value = pokemon.type1 || "";
+    }
+
+    if (type2Select) {
+        type2Select.value = pokemon.type2 || "";
+    }
 
 }
 
@@ -32,11 +40,47 @@ function fillMoveData(move) {
 
     if (!move) return;
 
+    // 威力
     document.getElementById("power").value =
-        move.power;
+        move.power ?? "";
 
+    // タイプ
     document.getElementById("moveType").value =
-        move.type;
+        move.type ?? "";
+
+    // 分類
+    const category = document.getElementById("moveCategory");
+
+    if (category) {
+
+        switch (move.category) {
+
+            case "physical":
+                category.value = "物理";
+                break;
+
+            case "special":
+                category.value = "特殊";
+                break;
+
+            case "status":
+                category.value = "変化";
+                break;
+
+            default:
+                category.value = "";
+        }
+
+    }
+
+    // 命中
+    const accuracy = document.getElementById("moveAccuracy");
+
+    if (accuracy) {
+
+        accuracy.value = move.accuracy ?? "";
+
+    }
 
 }
 
@@ -46,15 +90,23 @@ function fillMoveData(move) {
 
 function initializeTypeSelects() {
 
-    [
+    const ids = [
+
         "attackerType1",
         "attackerType2",
         "defenderType1",
         "defenderType2",
         "moveType"
-    ].forEach(fillTypeSelect);
+
+    ];
+
+    ids.forEach(fillTypeSelect);
 
 }
+
+// ------------------------------
+// タイプセレクト生成
+// ------------------------------
 
 function fillTypeSelect(id) {
 
@@ -83,6 +135,10 @@ function fillTypeSelect(id) {
     });
 
 }
+
+// ------------------------------
+// UI初期化
+// ------------------------------
 
 function initializeUI() {
 
