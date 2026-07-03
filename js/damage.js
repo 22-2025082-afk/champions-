@@ -1,80 +1,135 @@
 // ====================================
 // Pokémon Champions Damage Calculator
 // damage.js
-// Ver.0.5.1
+// Ver.0.5.3
 // ====================================
 
+// タイプ相性（簡易版）
+const TYPE_CHART = {
+
+    normal:     { rock: 0.5, ghost: 0, steel: 0.5 },
+    fire:       { grass: 2, ice: 2, bug: 2, steel: 2, fire: 0.5, water: 0.5, rock: 0.5, dragon: 0.5 },
+    water:      { fire: 2, ground: 2, rock: 2, water: 0.5, grass: 0.5, dragon: 0.5 },
+    electric:   { water: 2, flying: 2, electric: 0.5, grass: 0.5, dragon: 0.5, ground: 0 },
+    grass:      { water: 2, ground: 2, rock: 2, fire: 0.5, grass: 0.5, poison: 0.5, flying: 0.5, bug: 0.5, dragon: 0.5, steel: 0.5 },
+    ice:        { dragon: 2, flying: 2, grass: 2, ground: 2, fire: 0.5, water: 0.5, ice: 0.5, steel: 0.5 },
+    fighting:   { normal: 2, ice: 2, rock: 2, dark: 2, steel: 2, poison: 0.5, flying: 0.5, psychic: 0.5, bug: 0.5, fairy: 0.5, ghost: 0 },
+    poison:     { grass: 2, fairy: 2, poison: 0.5, ground: 0.5, rock: 0.5, ghost: 0.5, steel: 0 },
+    ground:     { fire: 2, electric: 2, poison: 2, rock: 2, steel: 2, grass: 0.5, bug: 0.5, flying: 0 },
+    flying:     { grass: 2, fighting: 2, bug: 2, electric: 0.5, rock: 0.5, steel: 0.5 },
+    psychic:    { fighting: 2, poison: 2, psychic: 0.5, steel: 0.5, dark: 0 },
+    bug:        { grass: 2, psychic: 2, dark: 2, fire: 0.5, fighting: 0.5, poison: 0.5, flying: 0.5, ghost: 0.5, steel: 0.5, fairy: 0.5 },
+    rock:       { fire: 2, ice: 2, flying: 2, bug: 2, fighting: 0.5, ground: 0.5, steel: 0.5 },
+    ghost:      { psychic: 2, ghost: 2, dark: 0.5, normal: 0 },
+    dragon:     { dragon: 2, steel: 0.5, fairy: 0 },
+    dark:       { psychic: 2, ghost: 2, fighting: 0.5, dark: 0.5, fairy: 0.5 },
+    steel:      { ice: 2, rock: 2, fairy: 2, fire: 0.5, water: 0.5, electric: 0.5, steel: 0.5 },
+    fairy:      { fighting: 2, dragon: 2, dark: 2, fire: 0.5, poison: 0.5, steel: 0.5 }
+
+};
+
 // ------------------------------
-// Pokémon Champions ダメージ計算
+// メイン計算
 // ------------------------------
 
 function calculateChampionsDamage(data) {
 
-    // ------------------------------
-    // 仮データ取得（後でUI連動）
-    // ------------------------------
+    const atk = data.atk;
+    const def = data.def;
+    const hp = data.hp;
 
-    const atk = data.atk ?? 130;
-    const def = data.def ?? 95;
-
-    const power = data.power ?? 100;
-
-    const abilityPointAtk = data.atkPoint ?? 0;
-    const abilityPointDef = data.defPoint ?? 0;
-
-    const natureAtk = data.atkNature ?? 1.0;
-    const natureDef = data.defNature ?? 1.0;
+    const power = data.power;
 
     // ------------------------------
-    // 実数値計算
+    // 実数値
     // ------------------------------
 
-    const A = Math.floor((atk + 20 + abilityPointAtk) * natureAtk);
-    const D = Math.floor((def + 20 + abilityPointDef) * natureDef);
+    const A = Math.floor((atk + 20 + data.atkPoint) * data.atkNature);
+    const D = Math.floor((def + 20 + data.defPoint) * data.defNature);
 
     // ------------------------------
-    // 固定パラメータ
+    // 基本ダメージ
     // ------------------------------
-
-    const L = 50;
 
     const base = Math.floor((22 * power * A / D) / 50) + 2;
 
     // ------------------------------
-    // 補正（今は仮）
+    // STAB
     // ------------------------------
 
-    const STAB = 1.0;
-    const type = 1.0;
-    const random = 1.0;
+    const moveType = data.moveType;
+    const attackerTypes = data.attackerTypes || [];
 
-    const M = STAB * type * random;
-
-    const damage = Math.floor(base * M);
+    const STAB = attackerTypes.includes(moveType) ? 1.5 : 1.0;
 
     // ------------------------------
-    // HP割合（仮）
+    // タイプ相性
     // ------------------------------
 
-    const hp = data.hp ?? 300;
+    const defenderTypes = data.defenderTypes || [];
 
-    const percent = (damage / hp) * 100;
+    let typeEffect = 1.0;
+
+    defenderTypes.forEach(t => {
+
+        const table = TYPE_CHART[moveType];
+
+        if (table && table[t] !== undefined) {
+            typeEffect *= table[t];
+        }
+
+    });
 
     // ------------------------------
-    // 返却
+    // 乱数（0.85〜1.00）
+    // ------------------------------
+
+    const randomMin = 0.85;
+    const randomMax = 1.00;
+
+    const Mmin = STAB * typeEffect * randomMin;
+    const Mmax = STAB * typeEffect * randomMax;
+
+    const minDamage = Math.floor(base * Mmin);
+    const maxDamage = Math.floor(base * Mmax);
+
+    // ------------------------------
+    // HP割合
+    // ------------------------------
+
+    const minPercent = (minDamage / hp) * 100;
+    const maxPercent = (maxDamage / hp) * 100;
+
+    // ------------------------------
+    // 結果
     // ------------------------------
 
     return {
 
-        minDamage: damage,
-        maxDamage: damage,
+        minDamage,
+        maxDamage,
 
-        minPercent: percent.toFixed(1),
-        maxPercent: percent.toFixed(1),
+        minPercent: minPercent.toFixed(1),
+        maxPercent: maxPercent.toFixed(1),
 
-        koText: "仮計算（Ver.0.5.1）",
+        koText: getKOText(maxDamage, hp),
 
-        hpPercent: Math.max(0, 100 - percent)
+        hpPercent: Math.max(0, 100 - maxPercent)
 
     };
+}
+
+// ------------------------------
+// 確定数判定
+// ------------------------------
+
+function getKOText(damage, hp) {
+
+    const hits = Math.ceil(hp / damage);
+
+    if (hits === 1) return "確定1発";
+    if (hits === 2) return "確定2発";
+    if (hits === 3) return "確定3発";
+    if (hits <= 5) return `${hits}発`;
+    return "乱数耐え";
 }
