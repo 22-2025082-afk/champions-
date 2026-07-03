@@ -1,7 +1,7 @@
 // ====================================
 // Pokémon Champions Damage Calculator
 // calculator.js
-// Ver.0.4.0
+// Ver.0.5.0
 // ====================================
 
 // ------------------------------
@@ -16,26 +16,28 @@ const koCount = document.getElementById("koCount");
 const hpFill = document.querySelector(".hp-fill");
 
 // ------------------------------
-// 仮ダメージ計算
+// ダメージ計算
 // ------------------------------
 
 function calculateDamage() {
 
-    // Ver.0.4では仮表示
+    // 現在はテスト用
+    // 将来的には画面から全データを取得する
 
-    const minDamage = 72;
-    const maxDamage = 85;
+    const data = {};
+
+    const result = calculateChampionsDamage(data);
 
     damageValue.textContent =
-        `${minDamage} ～ ${maxDamage}`;
+        `${result.minDamage} ～ ${result.maxDamage}`;
 
     damagePercent.textContent =
-        "34.7% ～ 41.0%";
+        `${result.minPercent}% ～ ${result.maxPercent}%`;
 
     koCount.textContent =
-        "確定3発";
+        result.koText;
 
-    updateHpBar(65);
+    updateHpBar(result.hpPercent);
 
 }
 
@@ -54,6 +56,8 @@ function updateHpBar(percent) {
 // ------------------------------
 
 function initializeCalculator() {
+
+    if (!calculateButton) return;
 
     calculateButton.addEventListener(
         "click",
