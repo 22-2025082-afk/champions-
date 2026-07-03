@@ -57,22 +57,55 @@ function setupPokemonSearch(inputId, searchBoxId) {
 function setupMoveSearch() {
 
     const input = document.getElementById("moveName");
+    const searchBox = document.getElementById("moveSearchBox");
 
-    if (!input) return;
+    if (!input || !searchBox) return;
 
     input.addEventListener("input", () => {
 
         const keyword = input.value.trim();
 
+        searchBox.innerHTML = "";
+
         if (keyword === "") return;
 
-        const move = GameData.moves.find(m =>
-            m.name === keyword
+        const result = GameData.moves.filter(move =>
+            move.name.includes(keyword)
         );
 
-        if (!move) return;
+        result.forEach(move => {
 
-        fillMoveData(move);
+            const div = document.createElement("div");
+
+            div.textContent = move.name;
+
+            div.addEventListener("click", () => {
+
+                input.value = move.name;
+
+                searchBox.innerHTML = "";
+
+                fillMoveData(move);
+
+            });
+
+            searchBox.appendChild(div);
+
+        });
+
+    });
+
+    // 入力欄以外をクリックしたら候補を閉じる
+    document.addEventListener("click", (event) => {
+
+        if (
+            event.target !== input &&
+            !searchBox.contains(event.target)
+        ) {
+
+            searchBox.innerHTML = "";
+
+        }
 
     });
 
