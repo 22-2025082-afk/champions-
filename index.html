@@ -101,33 +101,55 @@
     </section>
 
     <!-- 技 -->
-    <section class="card">
+<section class="card">
 
-        <div class="section-title">
-            💥 技
-            <button class="detail-button">⚙</button>
-        </div>
+    <div class="section-title">
+        💥 技
+        <button class="detail-button">⚙</button>
+    </div>
+
+    <input
+        type="text"
+        id="moveName"
+        placeholder="技名"
+        autocomplete="off">
+
+    <div
+        class="search-box"
+        id="moveSearchBox">
+    </div>
+
+    <div class="row">
+
+        <input
+            type="number"
+            id="power"
+            placeholder="威力"
+            readonly>
+
+        <select id="moveType">
+            <option value="">タイプ</option>
+        </select>
+
+    </div>
+
+    <div class="row">
 
         <input
             type="text"
-            id="moveName"
-            placeholder="技名">
+            id="moveCategory"
+            placeholder="分類"
+            readonly>
 
-        <div class="row">
+        <input
+            type="number"
+            id="moveAccuracy"
+            placeholder="命中"
+            readonly>
 
-            <input
-                type="number"
-                id="power"
-                placeholder="威力">
+    </div>
 
-            <select id="moveType">
-                <option value="">タイプ</option>
-            </select>
-
-        </div>
-
-    </section>
-
+</section>
     <button id="calculateButton">
         ダメージ計算
     </button>
