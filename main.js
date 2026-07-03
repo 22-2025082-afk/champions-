@@ -1,3 +1,9 @@
+function log(msg) {
+    const div = document.createElement("div");
+    div.textContent = msg;
+    document.body.appendChild(div);
+}
+
 console.log("1: start");
 await loadGameData();
 console.log("2: data loaded");
