@@ -1,7 +1,7 @@
 // ====================================
 // Pokémon Champions Damage Calculator
 // ui.js
-// Ver.0.4.0
+// Ver.0.5.0
 // ====================================
 
 // ------------------------------
@@ -14,21 +14,29 @@ function fillPokemonData(inputId, pokemon) {
 
     const isAttacker = inputId === "attackerPokemon";
 
-    const type1Select = document.getElementById(
+    document.getElementById(
         isAttacker ? "attackerType1" : "defenderType1"
-    );
+    ).value = pokemon.type1 || "";
 
-    const type2Select = document.getElementById(
+    document.getElementById(
         isAttacker ? "attackerType2" : "defenderType2"
-    );
+    ).value = pokemon.type2 || "";
 
-    if (type1Select) {
-        type1Select.value = pokemon.type1 || "";
-    }
+}
 
-    if (type2Select) {
-        type2Select.value = pokemon.type2 || "";
-    }
+// ------------------------------
+// 技情報を画面へ反映
+// ------------------------------
+
+function fillMoveData(move) {
+
+    if (!move) return;
+
+    document.getElementById("power").value =
+        move.power;
+
+    document.getElementById("moveType").value =
+        move.type;
 
 }
 
@@ -38,23 +46,15 @@ function fillPokemonData(inputId, pokemon) {
 
 function initializeTypeSelects() {
 
-    const ids = [
-
+    [
         "attackerType1",
         "attackerType2",
         "defenderType1",
         "defenderType2",
         "moveType"
-
-    ];
-
-    ids.forEach(fillTypeSelect);
+    ].forEach(fillTypeSelect);
 
 }
-
-// ------------------------------
-// タイプセレクト生成
-// ------------------------------
 
 function fillTypeSelect(id) {
 
@@ -83,10 +83,6 @@ function fillTypeSelect(id) {
     });
 
 }
-
-// ------------------------------
-// UI初期化
-// ------------------------------
 
 function initializeUI() {
 
