@@ -11,3 +11,15 @@ setupMoveSearch();
 console.log("6: move search");
 initializeCalculator();
 console.log("7: calculator");
+function log(msg) {
+
+    const div = document.createElement("div");
+
+    div.textContent = msg;
+    div.style.fontSize = "12px";
+    div.style.color = "red";
+    div.style.background = "black";
+    div.style.padding = "2px";
+
+    document.body.appendChild(div);
+}
