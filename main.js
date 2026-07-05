@@ -1,3 +1,5 @@
+alert("main.jsを読み込みました");
+
 // ====================================
 // Pokémon Champions Damage Calculator
 // main.js
